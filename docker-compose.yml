@@ -1,0 +1,49 @@
+version: '3'
+services:
+  api:
+    build: ./apps/api/
+    container_name: api
+    working_dir: /var/www
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./apps/api:/var/www
+    environment:
+      SERVICE_NAME: api
+      SERVICE_TAGS: dev
+    ports:
+      - "8080:9000"
+    networks:
+      - app-network
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8000:80"
+      - "443:443"
+    volumes:
+      - ./apps/api/:/var/www
+      - ./apps/api/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_DATABASE: api
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: db
+    volumes:
+      - ./tmp/mysql:/var/lib/mysql
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
