@@ -11,6 +11,8 @@ services:
     environment:
       SERVICE_NAME: api
       SERVICE_TAGS: dev
+      XDEBUG_CONFIG: "remote_host=192.168.0.9"
+      PHP_IDE_CONFIG: "serverName=Test"
     ports:
       - "8080:9000"
     networks:
