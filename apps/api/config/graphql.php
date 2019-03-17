@@ -5,6 +5,11 @@ use example\Query\ExampleQuery;
 use example\Type\ExampleRelationType;
 use example\Type\ExampleType;
 
+use App\GraphQL\Query\PostQuery;
+use App\GraphQL\Type\PostType;
+use App\GraphQL\Type\AuthorType;
+use App\GraphQL\Type\TagType;
+
 return [
 
     'prefix' => 'graphql',
@@ -15,14 +20,17 @@ return [
     'default_schema' => 'default',
     'schemas' => [
         'default' => [
-            'query' => [],
+            'query' => [
+                'posts' => PostQuery::class,
+            ],
             'middleware' => [],
             'method' => ['get', 'post'],
         ],
     ],
     'types' => [
-        // 'example'           => ExampleType::class,
-        // 'relation_example'  => ExampleRelationType::class,
+        'post' => PostType::class,
+        'author' => AuthorType::class,
+        'tag' => TagType::class,
     ],
     'error_formatter' => ['\Rebing\GraphQL\GraphQL', 'formatError'],
     'errors_handler' => ['\Rebing\GraphQL\GraphQL', 'handleErrors'],
