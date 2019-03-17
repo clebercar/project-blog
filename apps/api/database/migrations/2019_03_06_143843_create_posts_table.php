@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->string('image', 100);
             $table->boolean('published');
-            $table->unsignedBigInteger('author_id')->nullable();
+            $table->unsignedBigInteger('author_id');
             $table->timestamps();
         });
 
