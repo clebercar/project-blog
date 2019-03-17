@@ -14,7 +14,7 @@ services:
       XDEBUG_CONFIG: "remote_host=192.168.0.9"
       PHP_IDE_CONFIG: "serverName=Test"
     ports:
-      - "8080:9000"
+      - "8080:9001"
     networks:
       - app-network
   webserver:
